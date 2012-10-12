@@ -1,0 +1,29 @@
+{
+  "name": "NetworkNotifier",
+  "version": "12.10.8.1",
+  "manifest_version": 2,
+  "description": "Receive notifications when the internet connection of you system goes down.",
+  "browser_action": {
+    "default_icon": "48x48.png",
+    "default_popup": "popup.html",
+    "default_title": "NetworkNotifier"
+  },
+ "icons": { "16": "16x16.png",
+           "48": "48x48.png",
+          "128": "128x128.png" },
+  "permissions":[
+    "tabs",
+    "background"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://www.google.com/analytics/*"],
+      "js": ["content_script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "screamwoman.ogg"
+  ],
+  "background": { "scripts": ["background.js"] }
+}
