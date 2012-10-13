@@ -1,1 +1,1 @@
-Google Analytics Notifier is a very simple Google Chrome extension which helps you receive audio/visual notifications when the count of visitors on your website/blog goes beyond a certain predefined threshold.
+Network Notifier notifies you with a loud screeming sound soon as internet connection goes down on your system.

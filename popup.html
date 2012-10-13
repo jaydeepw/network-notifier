@@ -10,46 +10,25 @@
       }
     </style>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!--- <script type="text/javascript">
-
-      function getApps(){
-        console.log('saving data');
-        try{
-          localStorage.setItem('name', 'Jaydeep');
-        } catch(e){
-          console.error('Error while setting data in localStorage.');
-        }
-          
-      }
-    </script>  -->
   </head>
   <script src="/bootstrap/js/jquery-1.7.2.min.js"></script>
   <script src="/bootstrap/js/bootstrap.min.js"></script>
   <script src="app-ui.js"></script>
   <body>
     <ul class="nav nav-tabs">
-      <!-- <li class="active"><a href="#nodester-apps" data-toggle="tab">My Nodester Apps</a></li> -->
-      <li class="active"><a href="#configuration" data-toggle="tab">Notification Rules</a></li>
+      <li class="active">
+        <a href="#configuration" data-toggle="tab">Network Notifier</a>
+      </li>
     </ul>
-
     <div class="tab-content">
-      <!-- <div class="tab-pane " id="nodester-apps">
-        <div class="row-fluid" id="appsList">
-          
-        </div>
-        <hr>
-        <div class="row-fluid" id="serverStatus"></div>
-      </div> -->
       <div class="tab-pane active" id="configuration">
-        <!-- <form id="configurationForm"> -->
-          <label for="visitor_count" rel="tooltip" title="You will receive a notification if the number of visitors exceed this value">Visitor Count</label>
-          <input type="text" name="visitor_count" id="visitor_count"/>
-          <label class="checkbox"><input type="checkbox" id="silent-operations">Silent</label>
-          <!-- <label for="pass">Password</label>
-          <input type="password" name="pass" id="pass"/> -->
-          <input type="submit" id="save-rules" value="Save" class="btn btn-primary">
-        <!-- </form> -->
+          <!-- <label for="visitor_count" rel="tooltip" title="You will receive a notification if the number of visitors 
+          exceed this value">Visitor Count</label> -->
+
+        <p>
+          Network Notifier notifies you with a loud screeming sound soon as internet connection goes down on your system.
+        </p>
+
         <hr>
         <div class="about">
           <span>About this extension</span>
