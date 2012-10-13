@@ -12,16 +12,8 @@
            "48": "48x48.png",
           "128": "128x128.png" },
   "permissions":[
-    "tabs",
     "background",
     "notifications"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://www.google.com/analytics/*"],
-      "js": ["content_script.js"],
-      "run_at": "document_end"
-    }
   ],
   "web_accessible_resources": [
     "screamwoman.ogg", "online.png", "offline.png"
