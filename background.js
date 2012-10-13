@@ -1,74 +1,67 @@
-console.log('background js is running.');
-
-
 var DEVELOPMENT = true;
 var NAVIGATOR_ONLINE = 1,
-    NAVIGATOR_OFFLINE = 0;
+    NAVIGATOR_OFFLINE = 0,
+    notifications = [];
 
 var screemAudio = document.createElement('audio');
   screemAudio.src = chrome.extension.getURL("screamwoman.ogg");
   screemAudio.load();
 
-function updateOnlineStatus() {
-    var networkStatus = navigator.onLine ? NAVIGATOR_ONLINE : NAVIGATOR_OFFLINE;
-    console.log(networkStatus);
-    chrome.browserAction.setBadgeBackgroundColor({color:[0, 200, 0, 100]});
+  function updateOnlineStatus() {
+      var networkStatus = navigator.onLine ? NAVIGATOR_ONLINE : NAVIGATOR_OFFLINE;
+      console.log(networkStatus);
+      chrome.browserAction.setBadgeBackgroundColor({color:[0, 200, 0, 100]});
 
-    if( DEVELOPMENT )
-      chrome.browserAction.setBadgeText({text: String(networkStatus)});
+      if( DEVELOPMENT )
+        chrome.browserAction.setBadgeText({text: String(networkStatus)});
 
-    if( networkStatus == NAVIGATOR_OFFLINE ){
-      chrome.browserAction.setIcon({path: chrome.extension.getURL("offline.png")});
-      screemAudio.play();
-    }
-    else{
-      chrome.browserAction.setIcon({path: chrome.extension.getURL("online.png")});
-    }
-
-    //chrome.browserAction.setIcon({"path": chrome.extension.getURL("icon_16.png")});
-}
-
-updateOnlineStatus();
+      if( networkStatus == NAVIGATOR_OFFLINE ){
+        chrome.browserAction.setIcon({path: chrome.extension.getURL("offline.png")});
+        screemAudio.play();
+      }
+      else{
+        chrome.browserAction.setIcon({path: chrome.extension.getURL("online.png")});
+      }
+  }
 
   window.addEventListener("offline", function () {
     updateOnlineStatus();
+    showNotification(NAVIGATOR_OFFLINE);
   }, false);
 
   window.addEventListener("online", function () {
     updateOnlineStatus();
+    showNotification(NAVIGATOR_ONLINE);
   }, false);
 
+  function showNotification(networkStatus) {//shows a message based on weather you have internet connection and how soon the last message was sent
 
-/*chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.executeScript(
-      null, {code:"document.body.style.background='red !important'"});
+   var notification;
 
-  console.log('Browser action has been clicked.');
-});*/
+   if( networkStatus == NAVIGATOR_ONLINE ){
+      notification = webkitNotifications.createNotification(
+            chrome.extension.getURL("online.png"),
+            "",
+            "Your system is online");
+   }else{
+        notification = webkitNotifications.createNotification(
+            chrome.extension.getURL("offline.png"),
+            "",
+            "Your system went offline");
+   }
+   
 
-//chrome.browserAction.setBadgeBackgroundColor({color:[0, 200, 0, 100]});
+    notification.onclick = function(){removeNotification(notifications.length)} //remove notification when clicked
+    notification.show() //shows the notification
+    notifications[notifications.length] = {'notification':notification,'timer':setTimeout(removeNotification,3500)}; //removes notification after an amount of time
+  }
 
 
-/*chrome.extension.onConnect.addListener(function(port) {
+function removeNotification(index) {
+  if (index == null) index=0;
+  notifications[0].notification.cancel() //hides the notification
+  clearTimeout(notifications[0].timer) //removes the timer for the notification that can call this function
+  notifications.splice(0,1) //removes notification from list
+}
 
-	console.log('Connection established with the background script.' + port);
-  console.log(port);
-
-  port.onMessage.addListener(function(msg) {
-
-  	console.log(msg);
-
-    var rules = JSON.parse(localStorage.getItem('rules'));
-  	
-    if( msg.visitors && rules != null && msg.visitors >= rules.visitor_count ){
-
-          if( !rules.silent )
-            audioElement.play();
-
-          lastVisitorCount = msg.visitors;
-    }
-
-    chrome.browserAction.setBadgeText({text: String(msg.visitors)});
-    
-  });
-});*/
+updateOnlineStatus();
