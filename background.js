@@ -1,4 +1,4 @@
-var DEVELOPMENT = true;
+var DEVELOPMENT = false;
 var NAVIGATOR_ONLINE = 1,
     NAVIGATOR_OFFLINE = 0,
     notifications = [];
@@ -18,8 +18,7 @@ var screemAudio = document.createElement('audio');
       if( networkStatus == NAVIGATOR_OFFLINE ){
         chrome.browserAction.setIcon({path: chrome.extension.getURL("offline.png")});
         screemAudio.play();
-      }
-      else{
+      } else{
         chrome.browserAction.setIcon({path: chrome.extension.getURL("online.png")});
       }
   }
@@ -51,9 +50,9 @@ var screemAudio = document.createElement('audio');
    }
    
 
-    notification.onclick = function(){removeNotification(notifications.length)} //remove notification when clicked
+    notification.onclick = function(){ removeNotification(notifications.length) }   //remove notification when clicked
     notification.show() //shows the notification
-    notifications[notifications.length] = {'notification':notification,'timer':setTimeout(removeNotification,3500)}; //removes notification after an amount of time
+    notifications[notifications.length] = {'notification':notification,'timer':setTimeout( removeNotification,3500 )}; //removes notification after an amount of time
   }
 
 

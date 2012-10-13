@@ -1,1 +1,1 @@
-Network Notifier notifies you with a loud screeming sound soon as internet connection goes down on your system.
+Network Notifier notifies you with a loud screaming sound soon as internet connection goes down on your system.
